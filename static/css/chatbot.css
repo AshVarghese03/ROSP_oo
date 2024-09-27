@@ -1,0 +1,108 @@
+/* Set font family and size for the entire page */
+body {
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  background-color: rgb(30, 30, 81);
+}
+
+/* Style the chatbox container */
+#chatbox {
+  height: 500; /* Increase height */
+  width: 700px;
+  margin: 0 auto; /* Center horizontally */
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #000000;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  overflow-y: scroll; /* Add scrollbar */
+}
+
+/* Add some padding to the top of the chatbox container */
+#chatbox:before {
+  content: "";
+  display: block;
+  height: 30px;
+}
+
+/* Add a header to the chatbox container */
+#chatbox h2 {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style the chat input container */
+#userInput {
+  width: 100%;
+  max-width: 600px;
+  margin: 20px auto 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Style the text input field */
+#textInput {
+  width: 100%;
+  max-width: 400px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  font-weight: bold; /* Increase font weight */
+  padding: 5px;
+  margin-right: 10px;
+}
+
+/* Style the user message */
+.userText {
+  text-align: right;
+  margin-bottom: 10px;
+  animation: fadeInRight 0.5s ease; /* Add animation effect */
+}
+
+.userText span {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #3498db;
+  color: #fff;
+}
+
+/* Style the bot message */
+.botText {
+  text-align: left;
+  margin-bottom: 10px;
+  animation: fadeInLeft 0.5s ease; /* Add animation effect */
+}
+
+.botText span {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #f1c40f;
+  color: #fff;
+}
+
+/* Style the send button */
+#sendButton {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Style the send button on hover */
+#sendButton:hover {
+  background-color: #3e8e41;
+}

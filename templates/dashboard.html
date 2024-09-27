@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGuide</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+        body {
+            background-color: #f8f9fa; /* Softer background color */
+            color: #343a40;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Navbar settings */
+        .navbar {
+            background-color: #1f2b3c; /* Bright blue */
+        }
+
+        .navbar-brand h2 {
+            font-weight: bold;
+            color: #ffffff; /* White color for better contrast */
+        }
+
+        .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+
+        .navbar-nav .nav-link:hover {
+            color: #d1d1d1; /* Slightly lighter hover color */
+        }
+
+        .btn-primary {
+            background-color: #0056b3; /* Darker primary button */
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #004494; /* Darker hover color */
+        }
+
+        /* Jumbotron section */
+        .jumbotron {
+            background-color: #a0b3ce; /* Solid color instead of gradient */
+            text-align: center;
+            padding: 60px 25px; /* Adjusted padding */
+            color: #ffffff; /* Changed text color for better contrast */
+            border-radius: 8px; /* Rounded corners */
+            margin-bottom: 40px; /* Spacing below the jumbotron */
+        }
+
+        .jumbotron h1 {
+            font-weight: bold;
+            font-size: 2.5rem; /* Increased font size */
+        }
+
+        .jumbotron p {
+            color: #f8f9fa; /* Slightly lighter text color */
+            font-size: 1.2rem; /* Slightly larger font size */
+        }
+
+        /* Card section */
+        .card {
+            background-color: #ffffff;
+            color: #343a40;
+            border-radius: 10px; /* Slightly larger rounding */
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            transition: transform 0.2s; /* Smooth hover effect */
+        }
+
+        .card:hover {
+            transform: translateY(-5px); /* Lift effect on hover */
+        }
+
+        .card h5 {
+            color: #007bff; /* Consistent color with navbar */
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+            color: #343a40;
+            font-weight: bold; /* Added bold for emphasis */
+        }
+
+        footer {
+            padding: 20px 0;
+            text-align: center;
+            background-color: #343a40; /* Solid color instead of gradient */
+            color: #ffffff; /* White text for contrast */
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #d1d1d1; /* Slightly lighter hover color */
+        }
+
+        /* Solid colors for each section */
+        #section2 {
+            background-color: #e9ecef; /* Solid color */
+            color: #1f2b3c;
+        }
+
+        #section3 {
+            background-color: #f8f9fa; /* Solid color */
+            color: #1f2b3c;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <!-- Navbar Section -->
+        <nav class="navbar navbar-expand-lg navbar-dark">
+            <a class="navbar-brand" href="#">
+                <h2 class="logo">Edu<span>Guide</span> <i class="fa fa-robot ml-2"></i></h2>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#section2">About ChatBot</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#section3">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact Us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <div class="jumbotron">
+            <h1 class="display-4">Welcome, {{ Ashish }}!</h1>
+            <img src="/static/Screenshot_2023-02-04_174652.png" alt="" class="img-fluid my-4" style="max-width: 300px;">
+            <h2 class="font-weight-bold">Confused with your Admission Process?</h2>
+            <p class="lead">Don't worry, Edu<span>Guide</span> is here to help you.</p>
+            <a href="{{ url_for('chatbot') }}" class="btn btn-primary btn-lg mt-3">Use Chatbot</a>
+        </div>
+
+        <!-- About Section -->
+        <div id="section2" class="py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <img src="/static/artificial-intelligence-ai-robot-gives-recommendation-human-get-automated-response_39422-770.jpg" alt="" class="img-fluid rounded">
+                    </div>
+                    <div class="col-md-6">
+                        <h2>About Chatbot</h2>
+                        <p>AI automated educational Chatbot to assist students with the Admission Process, providing important dates for events, general information on various colleges, their amenities, brochures, and fee structures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+<!-- Services Section -->
+<div id="section3" class="py-5">
+    <div class="container">
+        <div class="section-title">
+            <h3>Our Services</h3>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="ri-building-4-fill display-4 mb-4"></i>
+                        <h5 class="card-title">Engineering Colleges</h5>
+                        <p class="card-text">List of Top Engineering Colleges available through MHTCET</p>
+                        <a href="{{ url_for('colleges') }}" class="btn btn-primary">Access</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="ri-calendar-check-fill display-4 mb-4"></i>
+                        <h5 class="card-title">Dates & Deadlines</h5>
+                        <p class="card-text">Get the important dates and deadlines for your admission process</p>
+                        <a href="{{ url_for('calender') }}" class="btn btn-primary">Access</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Replace College Amenities with Important Documents -->
+            <div class="col-md-4">
+                <div class="card text-center">
+                    <div class="card-body">
+                        <i class="ri-book-read-fill display-4 mb-4"></i>
+                        <h5 class="card-title">Important Documents</h5>
+                        <p class="card-text">Automation for providing required documents to the User</p>
+                        <a href="{{ url_for('api') }}" class="btn btn-primary">Access</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Footer Section -->
+        <footer>
+            <p>&copy; 2023 EduGuide. All Rights Reserved.</p>
+            <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

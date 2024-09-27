@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduGuide ChatBot</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, rgba(96, 143, 149, 1) 0%, rgba(0, 133, 136, 1) 9%, rgba(12, 36, 73, 1) 52%, rgba(26, 30, 59, 1) 100%);
+            font-family: 'Arial', sans-serif;
+        }
+        .navbar {
+            background-color: #0c2735;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        .navbar h1 {
+            color: #fff;
+            text-align: center;
+        }
+        .container {
+            margin-top: 80px;
+        }
+        .panel {
+            background-color: #fff;
+            border: 6px solid transparent;
+            border-radius: 25px;
+            box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
+            width: 100%; /* Full width */
+            max-width: 900px; /* Increased max width */
+            margin: auto; /* Center the panel */
+        }
+        .panel-info {
+            border-color: #0c2735;
+        }
+        .panel-info > .panel-heading {
+            color: white;
+            background-color: #0c2735;
+        }
+        .panel-footer {
+            padding: 15px 20px; /* Increased padding */
+            background-color: #0c2735;
+            border-top: 1px solid #0c2735;
+            border-radius: 10px;
+        }
+        .fixed-panel {
+            min-height: 600px; /* Increased height for chat area */
+            max-height: 600px;
+            overflow-y: auto;
+            background-color: #19313c;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+        }
+        .userText, .botText {
+            margin: 10px 0;
+            overflow-wrap: break-word;
+        }
+        .userText span {
+            background-color: #2EFE2E;
+            color: black;
+            padding: 10px;
+            border-radius: 10px;
+            float: right;
+            max-width: 70%; /* Set max width */
+            word-wrap: break-word;
+        }
+        .botText span {
+            background-color: white;
+            color: black;
+            padding: 10px;
+            border-radius: 10px;
+            float: left;
+            max-width: 70%; /* Set max width */
+            word-wrap: break-word;
+        }
+        .media-list {
+            display: table;
+        }
+        #userInput {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px; /* Space between input and chat area */
+        }
+        #textInput {
+            width: 100%; /* Full width */
+            padding: 15px; /* Increased padding */
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+        #sendButton {
+            padding: 15px 20px; /* Increased padding */
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            margin-left: 10px; /* Space between input field and button */
+        }
+        #sendButton:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <h1>EduGuide ChatBot</h1>
+        </div>
+        <div class="col-md-8 col-md-offset-2"> <!-- Adjusted column width for larger panel -->
+            <div id="chatPanel" class="panel panel-info">
+                <div class="panel-heading">
+                    <strong><span class="glyphicon glyphicon-globe"></span> Talk with EduGuide Bot (You: Green / Bot: White)</strong>
+                </div>
+                <div class="panel-body fixed-panel" id="chatbox">
+                    <ul class="media-list">
+                        <li class="botText">
+                            <span>Hi! I'm EduGuide Bot. 😊 How can I assist you?<br>1. Admission Documents<br>2. FAQs<br>3. Scholarships<br>4. Top Colleges<br>0. Main Query</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="panel-footer">
+                    <div id="userInput">
+                        <input id="textInput" type="text" name="msg" placeholder="Enter message here..." class="form-control"/>
+                        <span class="input-group-btn">
+                            <button id="sendButton" class="btn btn-info">Send</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script>
+        const chatbox = document.getElementById('chatbox');
+        function scrollToBottom() {
+            chatbox.scrollTop = chatbox.scrollHeight;
+        }
+        function getBotResponse() {
+            var rawText = $("#textInput").val();
+            var userHtml = '<li class="userText"><span>' + rawText + '</span></li>';
+            $("#textInput").val("");
+            $(".media-list").append(userHtml);
+            scrollToBottom();
+            $.get("/get", { msg: rawText }).done(function(data) {
+                var botHtml = '<li class="botText"><span>' + data + '</span></li>';
+                $(".media-list").append(botHtml);
+                scrollToBottom();
+            });
+        }
+        $("#textInput").keypress(function(e) {
+            if (e.which == 13) {
+                getBotResponse();
+            }
+        });
+        $("#sendButton").click(function() {
+            getBotResponse();
+        });
+    </script>
+</body>
+</html>
