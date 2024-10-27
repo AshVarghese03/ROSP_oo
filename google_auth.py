@@ -93,12 +93,17 @@ def google_auth_redirect():
                             redirect_uri=AUTH_REDIRECT_URI)
 
     oauth2_tokens = session.fetch_access_token(
-                        ACCESS_TOKEN_URI,            
+                        ACCESS_TOKEN_URI,
                         authorization_response=flask.request.url)
 
     flask.session[AUTH_TOKEN_KEY] = oauth2_tokens
-   
-    return flask.redirect('/api', code=302)  # redirect to /api route after authentication
+
+    # Fetch user information from Google's API
+    user_info = session.get('https://www.googleapis.com/oauth2/v1/userinfo').json()
+    flask.session['user_info'] = user_info  # Store user info in session
+    
+    return flask.redirect('/list', code=302)  # redirect to /list after authentication
+
 
 
     

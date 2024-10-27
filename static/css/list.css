@@ -1,0 +1,120 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+#document-list {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+/* Document Item Styles */
+.document-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.document-item:last-child {
+    border-bottom: none;
+}
+
+.document-item span {
+    font-size: 1rem;
+    color: #333333;
+}
+
+/* Upload Form Styles */
+.file-input {
+    display: none;
+}
+
+.file-label {
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-left: 15px;
+}
+
+.file-label:hover {
+    background-color: #0056b3;
+}
+
+/* Uploaded File Section */
+.uploaded-file {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.uploaded-file span {
+    font-size: 0.95rem;
+    color: #333333;
+}
+
+/* View & Delete Buttons */
+button {
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    margin-left: 10px;
+}
+
+button[type="submit"] {
+    margin: 0 5px;
+}
+
+button:hover {
+    opacity: 0.85;
+}
+
+button[type="submit"].view {
+    background-color: #28a745;
+    color: #ffffff;
+}
+
+button[type="submit"].delete {
+    background-color: #dc3545;
+    color: #ffffff;
+}
+
+button[type="submit"].view:hover {
+    background-color: #218838;
+}
+
+button[type="submit"].delete:hover {
+    background-color: #c82333;
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    .document-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .file-label, button {
+        margin-top: 10px;
+    }
+}

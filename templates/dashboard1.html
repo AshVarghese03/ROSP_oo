@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Styled Carousel with Jumbotron Slides</title>
+
+    <!-- Bootstrap CSS -->
+    <!--<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+    <!-- Internal CSS -->
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #66c6ff 100%);
+            color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            /*background-color: #0f2c40; /* Darker underwater blue */
+            border-radius: 15px; /* Rounded corners for navbar */
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Subtle light reflection effect */
+            border-bottom: 2px solid #80deea; /* Light blue border */
+            transition: box-shadow 0.3s ease;
+            margin-bottom: 20px; /* Spacing between navbar and carousel */
+            padding: 10px 20px; /* Space around the content */
+            position: relative;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+    
+        .navbar:hover {
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); /* Lightened water reflection on hover */
+        }
+
+        .navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+}
+    
+        .navbar-brand h2 {
+            font-weight: bold;
+            color: #ffffff; /* White text */
+            margin: 0;
+        }
+
+        .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    list-style: none;
+    list-style-type: none;
+}
+
+        .nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+    
+        .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+    
+        .navbar-nav .nav-link:hover {
+            color: #80deea; /* Light blue hover color */
+        }
+
+
+
+        .carousel-container {
+            width: 100%;
+            max-width: 1500px;
+            overflow: hidden;
+            position: relative;
+            margin: auto;
+            border-radius: 20px;
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-item {
+            min-width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #1a2b33;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.1);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .carousel-item .content, .carousel-item .Animations {
+            width: 45%;
+            padding: 20px;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .carousel-item .content {
+            text-align: left;
+            padding-left: 50px;
+        }
+
+        .carousel-item:nth-child(1) .Animations {
+            margin-left: -50px; /* Adjusted position */
+        }
+
+        .carousel-item:nth-child(2) .Animations {
+            margin-right: -200px; 
+            /* Adjusted position */
+            padding-left: 200px;
+        }
+
+        .carousel-item .Animations dotlottie-player {
+            width: 450px;
+            height: 450px;
+        }
+
+        .carousel-item:nth-child(4) .Animations dotlottie-player {
+            width: 450px; /* Increase size */
+            height: 450px; /* Increase size */
+            margin-left: -50px; /* Move closer to the content */
+        }
+
+        .carousel-item h1, .carousel-item p {
+            color: #e0f7fa;
+            margin-bottom: 20px;
+            transform: translateY(50px);
+            opacity: 0;
+        }
+
+        .carousel-control {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(31, 43, 60, 0.8);
+            border: none;
+            color: white;
+            padding: 10px;
+            cursor: pointer;
+            z-index: 10;
+        }
+
+        .carousel-control:hover {
+            background-color: rgba(31, 43, 60, 1);
+        }
+
+        #prevBtn {
+            left: 20px;
+        }
+
+        #nextBtn {
+            right: 20px;
+        }
+
+        .btn-primary {
+            background-color: #00838f;
+            border: none;
+            transition: box-shadow 0.3s ease;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+        }
+
+        .btn-primary:hover {
+            background-color: #005662;
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .carousel-item.active .content h1, .carousel-item.active .content p {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .carousel-item.active .Animations {
+            transform: translateX(0);
+        }
+
+        footer {
+            background-color: #0f2c40;
+            /* background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #66c6ff 100%); */
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0px;
+            border-radius: 15px;
+            border-top: 1px solid #80deea;
+            box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.1);
+        }
+
+        footer:hover {
+            box-shadow: 0 -8px 20px rgba(255, 255, 255, 0.2); /* Soft water shine on hover */
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #80deea;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="#">
+            <h2 class="logo">Edu<span>Guide</span> <i class="fa fa-robot ml-2"></i></h2>
+        </a>
+        <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button> -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+            <ul class="navbar-nav d-flex align-items-center">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#section2">About ChatBot</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Contact Us</a>
+                </li>
+                <li class="nav-item"></li>
+                    <a class="nav-link" href="#logout">Logout</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Carousel Section -->
+    <div class="carousel-container">
+        <div class="carousel-slide" id="carouselSlide">
+            <!-- Slide 1 -->
+            <div class="carousel-item active">
+                <div class="content" style=" padding-left: 100px;">
+                    <h1 style="font-size: 60px;">Welcome, Ashish!</h1>
+                    <h2 style="font-size: 25x;">Confused with your Admission Process?</h2>
+                    <p style="font-size: 20px;">Don't worry, Edu<span>Guide</span> is here to help you.</p>
+                    <a href="chatbot.html" style="color: white;" class="btn btn-primary">Use Chatbot</a>
+                </div>
+                <div class="Animations">
+                    <dotlottie-player src="https://lottie.host/2fbdc468-1d84-4bf2-8042-0685fbe74f6e/RndfyPxIFm.json" 
+                    background="transparent" 
+                    speed="1" 
+                    style="width: 450px; height: 450px;" 
+                    loop autoplay></dotlottie-player>
+                </div>
+            </div>
+
+            <!-- Slide 2 -->
+            <div class="carousel-item">
+                <div class="Animations">
+                    <dotlottie-player src="https://lottie.host/779dd2ab-714c-4073-b55a-8c06711895ad/zWnt6W4nxa.json" 
+                    background="transparent" 
+                    speed="1" 
+                    style="width: 350px; height: 350px;" 
+                    loop autoplay></dotlottie-player>
+                </div>
+                <div class="content">
+                    <h2 style="font-size: 30px;">Engineering Colleges</h2>
+                    <p style="font-size: 20px;">List of Top Engineering Colleges available through MHTCET</p>
+                    <a href="#" style="color: white;" class="btn btn-primary">Access</a>
+                </div>
+            </div>
+
+            <!-- Slide 3 -->
+            <div class="carousel-item">
+                <div class="content" style=" padding-left: 150px;">
+                    <h2 style="font-size: 30px;">Dates & Deadlines</h2>
+                    <p style="font-size: 20px;">Get the important dates and deadlines for your admission process</p>
+                    <a href="#" style="color: white;" class="btn btn-primary">Access</a>
+                </div>
+                <div class="Animations">
+                    <dotlottie-player src="https://lottie.host/de00e13b-5dbf-4a28-be4e-8341b8355644/0SarclzIgx.json" 
+                    background="transparent" 
+                    speed="1" 
+                    style="width: 450px; height: 450px;" 
+                    loop autoplay></dotlottie-player>
+                </div>
+            </div>
+
+            <!-- Slide 4 -->
+            <div class="carousel-item">
+                <div class="Animations" >
+                    <dotlottie-player src="https://lottie.host/b05729e4-73df-4386-9f69-74024c3374f9/9pi5X4EOPx.json"
+                    background="transparent" 
+                    speed="1" 
+                    style="width: 700px; height: 700px;  padding-left: 100px; padding-top: 10px;" 
+                    loop autoplay></dotlottie-player>
+                </div>
+                <div class="content">
+                    <h2 style="font-size: 30px;">Important Documents</h2>
+                    <p style="font-size: 20px;">Automation for providing required documents to the User</p>
+                    <a href="login1.html" style="color: white;" class="btn btn-primary">Access</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carousel Controls -->
+        <button class="carousel-control" id="prevBtn">❮</button>
+        <button class="carousel-control" id="nextBtn">❯</button>
+    </div>
+
+    <!-- About Section -->
+    <div id="section2" class="py-5" style="margin-bottom: 20px; margin-top: 20px;" >
+        <div class="container">
+            <div class="row align-items-center" style="
+            margin: 0;
+         font-size: 1rem;
+         font-weight: 400;
+         line-height: 1.5;
+         box-sizing: border-box;
+         align-items: center;
+         text-align: left;
+         font-family: 'Roboto', sans-serif;
+         /* background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #66c6ff 100%); */
+         color: #e0f7fa;
+         display: flex;
+         -ms-flex-wrap: wrap;
+         flex-wrap: wrap;
+             ;">
+                <div class="col-md-6" style="flex: 1; position: relative;
+                width: 100%;
+                padding-right: 15px;
+                padding-left: 15px;">
+                    <dotlottie-player src="https://lottie.host/d7b19463-9e21-435b-bc3d-bf2457fb61fd/onIwNpKP34.json" background="transparent" speed="1" 
+                    style="width: 500px; height: 500px; padding-left: 100px;" 
+                    loop autoplay></dotlottie-player> 
+                    <!-- style="
+                        border-radius: .25rem ;
+                        box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1); /* Initial border shadow */
+                        transition: box-shadow 0.3s ease;
+                        max-width: 100%;
+                        height: auto;
+                    
+                        vertical-align: middle;
+                        border-style: none;
+                    
+                        box-sizing: border-box;
+                        overflow-clip-margin: content-box;
+                        overflow: clip;
+
+                        font-size: 1rem;
+                        font-weight: 400;
+                        line-height: 1.5;
+                        text-align: left
+                    "> -->
+                </div>
+                <div class="col-md-6" style="flex: 1;">
+                    <h2 style="font-size: 36px;">About Chatbot</h2>
+                    <p style="font-size: 20px; justify-content: flex-end;">AI automated educational Chatbot to assist students with the Admission Process, providing important dates for events, general information on various colleges, their amenities, brochures, and fee structures.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 EduGuide. All Rights Reserved.</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </footer>
+
+    <!-- JavaScript for Carousel -->
+    <script>
+        const carouselSlide = document.getElementById('carouselSlide');
+        const carouselItems = document.querySelectorAll('.carousel-item');
+        let counter = 0;
+        const size = carouselItems[0].clientWidth;
+
+        function moveSlide() {
+            carouselSlide.style.transform = 'translateX(' + (-size * counter) + 'px)';
+            updateActiveSlide();
+        }
+
+        function updateActiveSlide() {
+            carouselItems.forEach((item, index) => {
+                item.classList.toggle('active', index === counter);
+            });
+        }
+
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            if (counter >= carouselItems.length - 1) {
+                counter = 0;
+            } else {
+                counter++;
+            }
+            moveSlide();
+        });
+
+        document.getElementById('prevBtn').addEventListener('click', () => {
+            if (counter <= 0) {
+                counter = carouselItems.length - 1;
+            } else {
+                counter--;
+            }
+            moveSlide();
+        });
+
+        window.addEventListener('resize', () => {
+            // Update the size on window resize
+            const newSize = carouselItems[0].clientWidth;
+            carouselSlide.style.transform = 'translateX(' + (-newSize * counter) + 'px)';
+        });
+    </script>
+
+</body>
+</html>

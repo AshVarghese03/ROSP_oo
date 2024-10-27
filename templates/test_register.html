@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Form Design</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            background-color: #3cd3cc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        /* Styles for Register Box */
+        .registerbox {
+            width: 400px;
+            height: 600px; /* Increased height to accommodate new field */
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.5);
+            color: black;
+            padding: 70px 30px;
+            box-sizing: border-box;
+            margin-left: 300px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5);
+        }
+
+        h1 {
+            margin: -50px 0 5px;
+            padding: -150px 0 0;
+            text-align: center;
+            font-size: 30px;
+        }
+
+        .registerbox p {
+            margin: 0px 0 0px;
+            padding: 0;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        .registerbox img {
+            height: 150px; /* Set the height for the logo */
+            width: auto; /* Maintain aspect ratio */
+            display: block; /* Make the image a block element */
+            margin: 0 auto; /* Center it horizontally */
+            position: relative; /* Position it relative to the parent */
+            top: -50px;
+        }
+
+        .registerbox input {
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .registerbox input[type="text"],
+        .registerbox input[type="password"] {
+            border: none;
+            border-bottom: 1px solid white;
+            background: transparent;
+            outline: none;
+            height: 40px;
+            color: white;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .registerbox input[type="submit"] {
+            border: none;
+            outline: none;
+            height: 40px;
+            background: #fb2525;
+            color: #fff;
+            font-size: 16px;
+            border-radius: 20px;
+        }
+
+        .registerbox input[type="submit"]:hover {
+            cursor: pointer;
+            background: #ffc107;
+            color: #000;
+        }
+
+        .registerbox a {
+            display: block;
+            text-decoration: none;
+            font-size: 18px;
+            color: darkgray;
+            margin-top: -30px;
+            text-align: center;
+        }
+
+        .registerbox a:hover {
+            color: #ffc107;
+        }
+
+        /* Animation on the left */
+        .animation-box {
+            width: 300px;
+            height: 300px;
+            margin-left: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Left side: Lottie Animation -->
+        <div class="animation-box">
+            <dotlottie-player src="https://lottie.host/e90b804b-8879-49b1-aa25-de5af444b470/t4sgSmUNmn.json" background="transparent" speed="1" style="width: 300px; height: 300px; transform: scale(2.7)" loop autoplay></dotlottie-player>
+        </div>
+
+        <!-- Right side: Register Box -->
+        <div class="registerbox">
+            <img src="/static/CETyourFuture-removebg-preview.png" class="avatar">
+            <h1><b>Register Here</b></h1>
+            <form action="/register" method="post" class="register_form">
+                <p>Name</p>
+                <input type="text" name="name" placeholder="Enter Name" required>
+                <p>Username</p>
+                <input type="text" name="username" placeholder="Enter Username" required>
+                <p>Password</p>
+                <input type="password" name="password" placeholder="Enter Password" required>
+                <p>Confirm Password</p>
+                <input type="password" name="confirm_password" placeholder="Confirm Password" required>
+                <input type="submit" value="Register"><br><br>
+                <a href="{{ url_for('show_login') }}">Already a user? Please sign-in</a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

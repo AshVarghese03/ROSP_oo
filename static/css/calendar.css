@@ -9,7 +9,7 @@
 }
 .event-container h3.year {
   font-size: 60px;
-  color: #eee;
+  color: #fffff2;
   text-align: center;
   border-bottom: 2px solid #fbf7f7;
 }
@@ -19,16 +19,16 @@
   display: flex;
   border-radius: 8px;
   margin: 32px 0;
-  background: #f5f5f5;
+  background: #d6eaff;
 }
 
 .event .event-left {
-  background: #121247;
+  background: #30a8a3;
   min-width: 82px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #eee;
+  color: #d6eaff;
   padding: 8px 48px;
   font-weight: bold;
   text-align: center;
@@ -49,14 +49,22 @@
   flex-direction: column;
   justify-content: center;
   padding: 0 24px;
-  background: #f5f5f5;
+  background: #d6eaff;
 }
 
 .event .event-right h3.event-title {
-  font-size: 24px;
+  font-size: 20px;
   margin: 24px 0 10px 0;
-  color: #218bbb;
+  color: #0d628a;
   text-transform: uppercase;
+}
+
+.event .event-right .event-description {
+  font-size: 16px;
+  margin: 0px 0 10px 0;
+  color: black;
+  font-style: italic;
+
 }
 
 .event .event-right .event-timing {

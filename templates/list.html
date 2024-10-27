@@ -1,72 +1,285 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <title>Google Drive File Browser</title>
-  </head>
-  <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-          <a class="navbar-brand" href="#">Google Drive File Browser</a>
-          <ul class="navbar-nav mr-auto"></ul>
-          <span class="navbar-text mr-2">
-            Currently logged in as {{ user_info['given_name'] }}
-          </span>
-          <a href="/google/logout" class="btn btn-primary" role="button" aria-pressed="true">Logout</a>
-      </div>
-    </nav>
-    <div class="container">   
-        <h3 class="mt-4">Upload a new file</h3>
-<form method='POST' enctype='multipart/form-data' action="/gdrive/upload">
-  <div class="input-group mb-3">
-    <div class="custom-file">
-      <input type="file" name="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
-      <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Upload List</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        #document-list {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        /* Document Item Styles */
+        .document-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .document-item span {
+            font-size: 1rem;
+            color: #333333;
+        }
+
+        /* Upload Form Styles */
+        .file-input {
+            display: none;
+        }
+
+        .file-label {
+            background-color: #007bff; /* Blue */
+            color: #ffffff;
+            padding: 6px 12px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-left: 15px;
+        }
+
+        .file-label:hover {
+            background-color: #0056b3; /* Darker blue */
+        }
+
+        /* View & Delete Buttons */
+        button {
+            border: none;
+            padding: 8px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-left: 10px;
+            transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+        }
+
+        /* Specific Button Styles */
+        button.view {
+            background-color: #28a745; /* Green */
+            color: #ffffff;
+        }
+
+        button.delete {
+            background-color: #dc3545; /* Red */
+            color: #ffffff;
+        }
+
+        button:hover {
+            opacity: 0.9; /* Slightly darkens on hover */
+        }
+
+        button.view:hover {
+            background-color: #218838; /* Darker green on hover */
+        }
+
+        button.delete:hover {
+            background-color: #c82333; /* Darker red on hover */
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgb(0,0,0); 
+            background-color: rgba(0,0,0,0.4); 
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto; 
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%; 
+            max-width: 600px; 
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="document-list">
+        <h2>Documents Required for Upload</h2>
+        <!-- List of documents will be displayed here by JavaScript -->
     </div>
-    <div class="input-group-append">
-      <input class="input-group-text" type="submit" value="Upload" />
+
+    <!-- Modal for viewing documents -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="closeModal">&times;</span>
+            <h2>View Document</h2>
+            <p id="modalText"></p>
+            <a id="modalLink" href="" target="_blank">Download/View Document</a>
+        </div>
     </div>
-  </div>
-</form>
-<h3 class="mt-4">Recent Files</h3>
-<table class="table">
-<thead>
-  <tr>
-    <th scope="col">Name</th>
-    <th scope="col">Mime Type</th>
-    <th scope="col">Created Time</th>
-    <th scope="col"></th>
-  </tr>
-</thead>
-<tbody>
-  {% for file in files %}
-  <tr>
-    <td>{{ file['name'] }}</td>
-    <td>{{ file['mimeType'] }}</td>
-    <td>{{ file['createdTime'] }}</td>
-    <td>
-      <a href="/gdrive/view/{{file['id']}}" class="btn btn-info">View</a>
-      <a href="/gdrive/download/{{file['id']}}" class="btn btn-primary">Download</a>
-      <a href="/gdrive/delete/{{file['id']}}" class="btn btn-danger">Delete</a>
-    </td>
-  </tr>
-  {% endfor %}
-</tbody>
-</table>
-{% if files|length == 0 %}
-    <p>No files found.</p>
-{% endif %}
-    </div>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
     <script>
-        $('.custom-file-input').on('change', function() { 
-            let fileName = $(this).val().split('\\').pop(); 
-            $(this).next('.custom-file-label').addClass("selected").html(fileName); 
+        document.addEventListener("DOMContentLoaded", function() {
+            const documentList = [
+                "SSC (Std. X) Mark Sheet and Passing Certificate",
+                "HSC (Std. XII) Mark Sheet and Passing Certificate (or Equivalent)",
+                "MHT CET Online Application Form",
+                "MHT CET Score Card/Rank Card",
+                "MHT CET Admit Card",
+                "Domicile Certificate OR Birth Certificate Mentioning Place of Birth",
+                "Nationality identification card/certificate",
+                "School Leaving Certificate (Transfer Certificate)",
+                "Migration Certificate (For candidates from boards other than the Maharashtra State Board)",
+                "Caste Certificate (for SC/ST/OBC categories)",
+                "Non-Creamy Layer Certificate (for applicable categories)",
+                "Defense Category Certificate (if applicable)",
+                "Gap Certificate (if applicable)",
+                "PwD Certificate (if applicable)",
+                "Income Certificate (if applicable)",
+                "Passport-sized Photograph",
+                "Signature"
+            ];
+
+            const documentContainer = document.getElementById("document-list");
+
+            // This will hold the uploaded documents
+            let uploadedDocuments = [];
+
+            documentList.forEach(docName => {
+                const documentItem = document.createElement("div");
+                documentItem.className = "document-item";
+
+                const documentTitle = document.createElement("span");
+                documentTitle.textContent = docName;
+
+                const uploadForm = document.createElement("form");
+                uploadForm.action = "/gdrive/upload";  // Adjust to your upload URL
+                uploadForm.method = "post";
+                uploadForm.enctype = "multipart/form-data";
+
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.name = "file";
+                fileInput.className = "file-input";
+                fileInput.id = `file-${docName.replace(/[^a-zA-Z0-9]/g, '')}`; // Unique ID for each file input
+
+                const hiddenInput = document.createElement("input");
+                hiddenInput.type = "hidden";
+                hiddenInput.name = "file_name";
+                hiddenInput.value = docName;
+
+                const fileLabel = document.createElement("label");
+                fileLabel.htmlFor = fileInput.id; // Set the label to the input
+                fileLabel.className = "file-label";
+                fileLabel.textContent = "Upload";
+
+                // Handle file selection
+                fileInput.addEventListener("change", function() {
+                    if (fileInput.files.length > 0) {
+                        const fileName = fileInput.files[0].name;
+                        uploadedDocuments.push({ name: fileName, original: docName });
+                        uploadForm.reset(); // Reset the form after file selection
+                        updateDocumentList(); // Update the visible document list
+                    }
+                });
+
+                uploadForm.appendChild(hiddenInput);
+                uploadForm.appendChild(fileInput);
+                uploadForm.appendChild(fileLabel);
+                documentItem.appendChild(documentTitle);
+                documentItem.appendChild(uploadForm);
+
+                documentContainer.appendChild(documentItem);
+            });
+
+            function updateDocumentList() {
+                // Clear existing uploaded documents display
+                const uploadedSection = document.getElementById("uploaded-documents");
+                if (uploadedSection) {
+                    uploadedSection.remove();
+                }
+
+                const newUploadedSection = document.createElement("div");
+                newUploadedSection.id = "uploaded-documents";
+
+                uploadedDocuments.forEach(doc => {
+                    const uploadedItem = document.createElement("div");
+                    uploadedItem.className = "document-item";
+                    uploadedItem.innerHTML = `
+                        <span>${doc.name} (Uploaded for: ${doc.original})</span>
+                        <button class="view" onclick="viewDocument('${doc.name}')">View</button>
+                        <button class="delete" onclick="deleteDocument('${doc.name}')">Delete</button>
+                    `;
+                    newUploadedSection.appendChild(uploadedItem);
+                });
+
+                documentContainer.appendChild(newUploadedSection);
+            }
+
+            window.deleteDocument = function(fileName) {
+                // Remove the document from the uploadedDocuments array
+                uploadedDocuments = uploadedDocuments.filter(doc => doc.name !== fileName);
+                updateDocumentList(); // Update the visible document list
+            };
+
+            window.viewDocument = function(fileName) {
+                // Display the document in the modal
+                const modalText = document.getElementById("modalText");
+                const modalLink = document.getElementById("modalLink");
+                
+                modalText.textContent = `You are viewing: ${fileName}`;
+                modalLink.href = `/path/to/your/documents/${fileName}`; // Adjust this to point to your uploaded documents path
+                
+                // Show the modal
+                document.getElementById("myModal").style.display = "block";
+            };
+
+            // Close the modal when the user clicks on <span> (x)
+            document.getElementById("closeModal").onclick = function() {
+                document.getElementById("myModal").style.display = "none";
+            };
+
+            // Close the modal when the user clicks anywhere outside of the modal
+            window.onclick = function(event) {
+                const modal = document.getElementById("myModal");
+                if (event.target == modal) {
+                    modal.style.display = "none";
+                }
+            };
         });
     </script>
-  </body>
+</body>
 </html>
