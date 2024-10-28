@@ -13,103 +13,161 @@
             color: #fffff2;
             display: flex;
             flex-direction: column;
-            height: 100vh;
+            min-height: 100vh; /* Ensure body takes full screen */
             margin: 0;
         }
 
+        .navbar {
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1);
+            border-bottom: 2px solid #80deea;
+            margin-bottom: 20px;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand h2 {
+            font-weight: bold;
+            color: #ffffff;
+            margin: 0;
+        }
+
+        .navbar-nav {
+            display: flex;
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .nav-link {
+            color: #ffffff;
+            padding: .5rem 1rem;
+        }
+
         .event-container {
-            width: 80%; /* Adjust this as needed */
-            margin: 0 auto; /* Center the container */
-            overflow-y: auto; /* Enable scrolling if needed */
-            height: 100%; /* Full height */
-            padding-top: 20px; /* Padding for top space */
+            width: 80%;
+            margin: 0 auto;
+            flex-grow: 1; /* Ensures container takes available space */
+            padding-top: 20px;
         }
 
         h3.year {
             text-align: center;
             margin-bottom: 20px;
-            font-size: 24px; /* Larger font for year title */
-            color: #e0e0e0; /* Lighter color for contrast */
+            font-size: 24px;
+            color: #e0e0e0;
         }
 
         .event {
             display: flex;
-            background-color: #f8f9fa; /* Light background for events */
-            margin-bottom: 15px; /* Spacing between cards */
-            padding: 10px; /* Padding for cards */
+            background-color: #f8f9fa;
+            margin-bottom: 15px;
+            padding: 10px;
             border-radius: 8px;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-            align-items: center; /* Align items vertically */
+            align-items: center;
         }
 
         .event-left {
-            flex: 0 0 25%; /* Width of the left side */
+            flex: 0 0 25%;
             text-align: center;
-            background-color: #6c757d; /* Darker background for date section */
-            color: #fff; /* White text for contrast */
-            border-radius: 5px; /* Rounded corners */
-            padding: 10px 0; /* Vertical padding */
+            background-color: #6c757d;
+            color: #fff;
+            border-radius: 5px;
+            padding: 10px 0;
         }
 
         .event-date {
-            font-size: 28px; /* Increased date font size */
-            font-weight: bold; /* Bold date */
+            font-size: 28px;
+            font-weight: bold;
         }
 
         .event-month {
-            font-size: 16px; /* Month font size */
+            font-size: 16px;
         }
 
         .event-right {
-            flex: 1; /* Remaining space */
-            padding-left: 15px; /* Space between sections */
+            flex: 1;
+            padding-left: 15px;
         }
 
         .event-title {
-            font-size: 18px; /* Title font size */
-            margin: 5px 0; /* Title spacing */
-            color: #343a40; /* Darker color for title */
-            font-weight: bold; /* Bold title */
+            font-size: 18px;
+            margin: 5px 0;
+            color: #343a40;
+            font-weight: bold;
         }
 
         .event-description {
-            font-size: 12px; /* Description font size */
-            line-height: 1.5; /* Increase line height for readability */
-            color: #495057; /* Darker color for description */
+            font-size: 12px;
+            line-height: 1.5;
+            color: #495057;
         }
 
-        /* Responsive styles */
         @media (max-width: 600px) {
             .event {
-                flex-direction: column; /* Stack elements */
-                align-items: flex-start; /* Align left */
+                flex-direction: column;
+                align-items: flex-start;
             }
 
             .event-left,
             .event-right {
-                width: 100%; /* Full width */
+                width: 100%;
             }
 
             .event-right {
-                padding-left: 0; /* Reset padding for full width */
+                padding-left: 0;
             }
+        }
+
+        footer {
+            background-color: #0f2c40;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            position: relative; /* Ensure it's within normal flow */
         }
     </style>
 </head>
 
 <body>
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="">
+            <h2 class="logo">CETyourFuture</h2>
+        </a>
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link active" href="">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#section2">About ChatBot</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#logout">Logout</a>
+            </li>
+        </ul>
+    </nav>
+
     <div class="event-container" id="event-container">
         <h3 class="year">MHT CET Timeline</h3>
     </div>
+
+    <footer>
+        <p>&copy; 2024 EduGuide. All Rights Reserved.</p>
+    </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <script>
         $(document).ready(function () {
-            // Fetch events from your API
             $.ajax({
-                url: '/api/dates', // Replace with your actual endpoint
+                url: '/api/dates',
                 method: 'GET',
                 success: function (events) {
                     renderEvents(events);
