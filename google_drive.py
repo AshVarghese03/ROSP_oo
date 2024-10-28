@@ -1,8 +1,7 @@
 import io
 import tempfile
-import google_auth
 import flask
-from flask import render_template, request, redirect, url_for, send_file, session
+from flask import render_template, request, redirect, url_for, send_file, jsonify
 from googleapiclient.http import MediaIoBaseDownload, MediaIoBaseUpload
 import googleapiclient.discovery
 from google_auth import build_credentials
@@ -36,8 +35,8 @@ def login1():
 
     return render_template('list.html', files=files)
 
-# Function to save/upload an image to Google Drive
-def save_image(file_name, mime_type, file_data):
+# Function to save/upload a file to Google Drive
+def save_file(file_name, mime_type, file_data):
     drive_api = build_drive_api_v3()
 
     try:
@@ -58,24 +57,23 @@ def save_image(file_name, mime_type, file_data):
 
         return file_id
     except Exception as e:
-        print(f"Error saving image: {e}")
+        print(f"Error saving file: {e}")
         return None
 
 # Route to handle file upload
 @app.route('/gdrive/upload', methods=['POST'])
 def upload_file():
-    if 'file' in request.files and 'file_name' in request.form:
+    if 'file' in request.files:
         file = request.files['file']
-        file_name = request.form['file_name']
         if file:
-            filename = secure_filename(file_name)
+            original_file_name = secure_filename(file.filename)  # Use the original file name
 
             # Create a temporary file
             with tempfile.TemporaryFile(mode='w+b') as fp:
                 fp.write(file.read())
                 fp.seek(0)
                 mime_type = file.mimetype
-                file_id = save_image(filename, mime_type, fp)
+                file_id = save_file(original_file_name, mime_type, fp)  # Use the original name
 
                 if file_id:
                     flask.flash('File uploaded successfully!', 'success')
@@ -108,7 +106,7 @@ def list_files_route():
 @app.route('/gdrive/files', methods=['GET'])
 def get_files():
     files = list_files()  # Get the list of files from Google Drive
-    return flask.jsonify(files)
+    return jsonify(files)
 
 # Route to view/download a file
 @app.route('/gdrive/view/<file_id>', methods=['GET'])
@@ -139,7 +137,7 @@ def view_file(file_id):
         # Return the file to the user
         return send_file(
             fh,
-            as_attachment=False,
+            as_attachment=True,
             download_name=metadata['name'],  # Use download_name for Flask 2.0+
             mimetype=metadata['mimeType']
         )

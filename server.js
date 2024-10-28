@@ -42,6 +42,24 @@ app.get('/colleges', async (req, res) => {
   }
 });
 
+const datesSchema = new mongoose.Schema({
+  date: String,
+  title: String,
+  description: String,
+});
+
+const Calendar = mongoose.model('dates', datesSchema);
+
+// API endpoint to get all calendar events
+app.get('/calendar', async (req, res) => {
+  try {
+    const events = await Calendar.find();  // Fetch all calendar records from the collection
+    res.json(events);  // Send the calendar data as JSON
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 // Start the server on port 3000
 app.listen(3000, () => {
   console.log('Server is running on http://localhost:3000');

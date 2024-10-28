@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MHT CET 2024 Admission Timeline </title>
-    <link rel="stylesheet" href="/static/css/calendar.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <title>Event Timeline</title>
     <style>
         body {
             background-color: #0c2735;
@@ -19,402 +20,125 @@
         .event-container {
             width: 80%; /* Adjust this as needed */
             margin: 0 auto; /* Center the container */
+            overflow-y: auto; /* Enable scrolling if needed */
+            height: 100%; /* Full height */
+            padding-top: 20px; /* Padding for top space */
+        }
+
+        h3.year {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 24px; /* Larger font for year title */
+            color: #e0e0e0; /* Lighter color for contrast */
         }
 
         .event {
             display: flex;
-            background-color: #fffff2;
-            margin-bottom: 10px; /* Reduce spacing between cards */
-            padding: 8px; /* Reduced padding for slimmer appearance */
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            background-color: #f8f9fa; /* Light background for events */
+            margin-bottom: 15px; /* Spacing between cards */
+            padding: 10px; /* Padding for cards */
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
             align-items: center; /* Align items vertically */
         }
 
         .event-left {
-            flex: 0 0 20%; /* Adjust the width of the left side */
+            flex: 0 0 25%; /* Width of the left side */
             text-align: center;
+            background-color: #6c757d; /* Darker background for date section */
+            color: #fff; /* White text for contrast */
+            border-radius: 5px; /* Rounded corners */
+            padding: 10px 0; /* Vertical padding */
         }
 
         .event-date {
-            font-size: 24px; /* Adjust font size for date */
-            font-weight: bold; /* Make the date bold */
+            font-size: 28px; /* Increased date font size */
+            font-weight: bold; /* Bold date */
         }
 
         .event-month {
-            font-size: 14px; /* Smaller font for month */
+            font-size: 16px; /* Month font size */
         }
 
         .event-right {
-            flex: 1; /* Allow this section to take up remaining space */
-            padding-left: 15px; /* Space between left and right sections */
+            flex: 1; /* Remaining space */
+            padding-left: 15px; /* Space between sections */
         }
 
-        .event-right event-title {
-            font-size: 14px; /* Adjust font size for title */
-            margin: 5px 0; /* Add small margin for title spacing */
-            font-color: black;
+        .event-title {
+            font-size: 18px; /* Title font size */
+            margin: 5px 0; /* Title spacing */
+            color: #343a40; /* Darker color for title */
+            font-weight: bold; /* Bold title */
         }
 
         .event-description {
-            font-size: 10px; /* Smaller font for description */
-            line-height: 1.3; /* Reduce line height */
-            font-color: black;
+            font-size: 12px; /* Description font size */
+            line-height: 1.5; /* Increase line height for readability */
+            color: #495057; /* Darker color for description */
         }
 
-        /* Additional responsive styles */
+        /* Responsive styles */
         @media (max-width: 600px) {
             .event {
-                flex-direction: column; /* Stack elements on smaller screens */
-                align-items: flex-start; /* Align items to the left */
+                flex-direction: column; /* Stack elements */
+                align-items: flex-start; /* Align left */
             }
 
             .event-left,
             .event-right {
-                width: 100%; /* Full width on small screens */
+                width: 100%; /* Full width */
+            }
+
+            .event-right {
+                padding-left: 0; /* Reset padding for full width */
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="event-container">
-        <h3 class="year">MHT CET PROCESS 2024</h3>
-
-        <!-- Event 1 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">10</div>
-                    <div class="month">Jan</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET 2024 Registration Start Date</h3>
-                <div class="event-description">
-                    Candidates can start registering for the exam on the official website.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 2 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">16</div>
-                    <div class="month">Jan</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">Start Date to Fill Out the MHT CET Application Form</h3>
-                <div class="event-description">
-                    Application form submission opens on the official website.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 3 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">8</div>
-                    <div class="month">Mar</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">Last Date for MHT CET Application Form Submission</h3>
-                <div class="event-description">
-                    Deadline for form submission without a late fee.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 4 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">9 - 15</div>
-                    <div class="month">Mar</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">Last Date to Pay the MHT CET Application Fee (with Late Fee)</h3>
-                <div class="event-description">
-                    Candidates can submit their fees with a late fee.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 5 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">16</div>
-                    <div class="month">Mar</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">Last Date to Pay the Application Fee (Online)</h3>
-                <div class="event-description">
-                    Final deadline to pay the application fee online without any late fees.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 6 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">20 - 22</div>
-                    <div class="month">Mar</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Application Form Correction Facility</h3>
-                <div class="event-description">
-                    Candidates can make corrections in their submitted forms.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 7 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">27</div>
-                    <div class="month">Apr</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET 2024 Subject Adding Facility</h3>
-                <div class="event-description">
-                    Candidates can add or modify the subjects for which they will appear.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 8 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">13</div>
-                    <div class="month">Apr</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Admit Card for PCB Available for Download</h3>
-                <div class="event-description">
-                    Admit cards available for candidates appearing for PCB.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 9 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">19</div>
-                    <div class="month">Apr</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Admit Card for PCM Available for Download</h3>
-                <div class="event-description">
-                    Admit cards available for candidates appearing for PCM.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 10 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">22 - 30</div>
-                    <div class="month">Apr</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Exam Dates for PCB (Revised)</h3>
-                <div class="event-description">
-                    Exam dates for PCB candidates: April 22, 23, 24, 27, 28, 29, and 30, 2024.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 11 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">2 - 17</div>
-                    <div class="month">May</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Exam Dates for PCM (Revised)</h3>
-                <div class="event-description">
-                    Exam dates for PCM candidates: May 2, 3, 4, 9, 10, 11, 15, 16, and 17, 2024.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 12 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">22 - 24</div>
-                    <div class="month">May</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Answer Key Release and Challenge Window for PCB</h3>
-                <div class="event-description">
-                    Candidates can check and challenge the PCB answer key.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 13 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">24 - 26</div>
-                    <div class="month">May</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Answer Key Release and Challenge Window for PCM</h3>
-                <div class="event-description">
-                    Candidates can check and challenge the PCM answer key.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 14 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">12</div>
-                    <div class="month">Jun</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Result Announcement</h3>
-                <div class="event-description">
-                    Official results for MHT CET will be released.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 15 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">27 - 28</div>
-                    <div class="month">Jun</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">Reopening of the MHT CET Answer Key Window for PCM Group</h3>
-                <div class="event-description">
-                    Answer key challenge reopens for PCM candidates.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 16 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">29 - 30</div>
-                    <div class="month">Jun</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">Reopening of the MHT CET Answer Key Window for PCB Group</h3>
-                <div class="event-description">
-                    Answer key challenge reopens for PCB candidates.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 17 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">10 - 28</div>
-                    <div class="month">Jul</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET CAP Process 2024 (Rounds 1-3)</h3>
-                <div class="event-description">
-                    The counseling and seat allotment process for CAP begins.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 18 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">14 - 30</div>
-                    <div class="month">Jul</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET Final CAP Process</h3>
-                <div class="event-description">
-                    Final allotment and confirmation of seats through the CAP rounds.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 19 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">14</div>
-                    <div class="month">Aug</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET CAP Round 1 Seat Allotment</h3>
-                <div class="event-description">
-                    Round 1 seat allotment result announced. Candidates can check their seat allotment.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 20 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">27 - 29</div>
-                    <div class="month">Aug</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET CAP Round 2 Admission Confirmation</h3>
-                <div class="event-description">
-                    Candidates must confirm their admission by paying the admission fee.
-                </div>
-            </div>
-        </div>
-
-        <!-- Event 21 -->
-        <div class="event">
-            <div class="event-left">
-                <div class="event-date">
-                    <div class="date">9</div>
-                    <div class="month">Sep</div>
-                </div>
-            </div>
-            <div class="event-right">
-                <h3 class="event-title">MHT CET CAP Round 3 Admission Confirmation Deadline</h3>
-                <div class="event-description">
-                    Last date to confirm admission by paying the fee for Round 3.
-                </div>
-            </div>
-        </div>
+    <div class="event-container" id="event-container">
+        <h3 class="year">MHT CET Timeline</h3>
     </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+            // Fetch events from your API
+            $.ajax({
+                url: '/api/dates', // Replace with your actual endpoint
+                method: 'GET',
+                success: function (events) {
+                    renderEvents(events);
+                },
+                error: function (err) {
+                    console.error("Failed to fetch events: ", err);
+                }
+            });
+
+            function renderEvents(events) {
+                const container = $('#event-container');
+                events.forEach(event => {
+                    const eventCard = `
+                        <div class="event">
+                            <div class="event-left">
+                                <div class="event-date">${moment(event.start).format('DD')}</div>
+                                <div class="event-month">${moment(event.start).format('MMMM')}</div>
+                            </div>
+                            <div class="event-right">
+                                <div class="event-title">${event.title}</div>
+                                <div class="event-description">${event.description || 'No description available.'}</div>
+                            </div>
+                        </div>
+                    `;
+                    container.append(eventCard);
+                });
+            }
+        });
+    </script>
 </body>
+
 </html>

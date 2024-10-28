@@ -128,6 +128,13 @@ def colleges_api_route():
     colleges_data = list(colleges_collection.find({}, {'_id': 0}))  # exclude '_id'
     return jsonify(colleges_data)
 
+@app.route('/api/dates')
+def dates_api_route():
+    # Fetch event data from the 'dates' collection
+    events_data = list(db.dates.find({}, {'_id': 0}))  # Exclude '_id' from the output
+    return jsonify(events_data)
+
+
 
 
 
@@ -158,7 +165,7 @@ def get_bot_response():
 @app.route('/api')
 def api():
     # Your Google Drive API logic would go here.
-    return render_template('login1.html', login_url='/google/login')
+    return render_template('login2.html', login_url='/google/login')
 
 @app.route('/bot', methods=['POST'])
 def bot_response():
@@ -185,7 +192,7 @@ def mylist():
     user_info = session.get('user_info')  # or however you store the user info
     if not user_info:
         return redirect(url_for('login'))  # Redirect to login if user info is missing
-    return render_template('list.html', user_info=user_info)
+    return render_template('listnew.html', user_info=user_info)
 
 
 if __name__ == '__main__':

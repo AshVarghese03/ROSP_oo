@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Upload List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.2.0/fonts/remixicon.css" rel="stylesheet">
+    <style>
+        /* Body style from dashboard.html */
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #66c6ff 100%);
+            color: #e0f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Navbar styling */
+        .navbar {
+            /*background-color: #0f2c40; /* Darker underwater blue */
+            border-radius: 15px; /* Rounded corners for navbar */
+            box-shadow: 0 4px 10px rgba(255, 255, 255, 0.1); /* Subtle light reflection effect */
+            border-bottom: 2px solid #80deea; /* Light blue border */
+            transition: box-shadow 0.3s ease;
+            margin-bottom: 20px; /* Spacing between navbar and carousel */
+            padding: 10px 20px; /* Space around the content */
+            position: relative;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            display: flex;
+            align-items: center;
+        }
+    
+        .navbar:hover {
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.2); /* Lightened water reflection on hover */
+        }
+
+        .navbar-brand {
+    display: inline-block;
+    padding-top: .3125rem;
+    padding-bottom: .3125rem;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+    line-height: inherit;
+}
+    
+        .navbar-brand h2 {
+            font-weight: bold;
+            color: #ffffff; /* White text */
+            margin: 0;
+        }
+
+        .navbar-nav {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    list-style: none;
+    list-style-type: none;
+}
+
+        .nav-link {
+    display: block;
+    padding: .5rem 1rem;
+}
+    
+        .navbar-nav .nav-link {
+            color: #ffffff;
+        }
+    
+        .navbar-nav .nav-link:hover {
+            color: #80deea; /* Light blue hover color */
+        }
+
+
+        /* Document list container */
+        #document-list {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #1a2b33;
+            border-radius: 8px;
+            border: 2px solid #80deea; /* Full border outline */
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            color: #80deea;
+        }
+
+        .document-item {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #80deea;
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .file-label {
+            text-align: center;
+            display: block;
+            margin: 0 auto;
+            width: 100px; /* Control button width */
+        }
+
+        .file-label:hover {
+            background-color: #005662;
+            box-shadow: 0 6px 15px rgba(255, 255, 255, 0.3);
+        }
+
+        .uploaded-file {
+            margin-left: 15px;
+            color: #66c6ff;
+        }
+
+        /* Modal styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.5);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #1a2b33;
+            margin: 5% auto;
+            padding: 20px;
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+            color: #e0f7fa;
+        }
+
+        .close {
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            color: #80deea;
+        }
+
+        .close:hover {
+            color: #66c6ff;
+            cursor: pointer;
+        }
+
+        /* Footer styling */
+        footer {
+            background-color: #0f2c40;
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            border-top: 1px solid #80deea;
+            box-shadow: 0 -4px 10px rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+        }
+
+        footer:hover {
+            box-shadow: 0 -8px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        footer a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            color: #80deea;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar Section -->
+    <nav class="navbar">
+        <a class="navbar-brand" href="#">
+            <h2 class="logo">CET<span>yourFuture</span> </h2>
+        </a>
+        <ul class="navbar-nav">
+            <li><a class="nav-link" href="#">Home</a></li>
+            <li><a class="nav-link" href="#section2">About ChatBot</a></li>
+            <li><a class="nav-link" href="#">Contact Us</a></li>
+            <li><a class="nav-link" href="#logout">Logout</a></li>
+        </ul>
+    </nav>
+
+    <!-- Document list container -->
+    <div id="document-list">
+        <h2>Documents Required for Upload</h2>
+        <!-- Dynamic document list generated by JavaScript -->
+    </div>
+
+    <!-- Modal for viewing files -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>View Document</h2>
+            <p id="modalText"></p>
+            <a id="modalLink" href="#" target="_blank">Open Document</a>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 EduGuide. All Rights Reserved.</p>
+        <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a>
+    </footer>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const documents = [
+                "SSC Mark Sheet",
+                "HSC Mark Sheet",
+                "MHT CET Score Card",
+                "Domicile Certificate",
+                "Nationality identification card/certificate",
+                "School Leaving Certificate (Transfer Certificate)",
+                "Migration Certificate (For candidates from boards other than the Maharashtra State Board)",
+                "Caste Certificate (for SC/ST/OBC categories)",
+                "Non-Creamy Layer Certificate (for applicable categories)",
+                "Defense Category Certificate (if applicable)",
+                "Gap Certificate (if applicable)",
+                "PwD Certificate (if applicable)",
+                "Income Certificate (if applicable)",
+                "Passport-sized Photograph",
+                "Signature"
+            ];
+
+            const documentContainer = document.getElementById("document-list");
+
+            documents.forEach(doc => {
+                const item = document.createElement("div");
+                item.className = "document-item";
+
+                const title = document.createElement("span");
+                title.textContent = doc;
+
+                const uploadForm = document.createElement("form");
+                uploadForm.enctype = "multipart/form-data";
+
+                const fileInput = document.createElement("input");
+                fileInput.type = "file";
+                fileInput.style.display = "none";
+
+                const label = document.createElement("label");
+                label.textContent = "Upload";
+                label.className = "file-label";
+
+                const uploadedText = document.createElement("span");
+                uploadedText.className = "uploaded-file";
+                uploadedText.textContent = "No file uploaded yet"; // Default message
+
+                const uploadStatus = document.createElement("span");
+                uploadStatus.className = "uploaded-file";
+                uploadStatus.style.display = "none"; // Hidden by default
+
+                // Click to upload
+                label.onclick = () => fileInput.click();
+
+                fileInput.addEventListener("change", () => {
+                    const file = fileInput.files[0];
+                    if (file) {
+                        uploadedText.textContent = file.name;
+                        uploadStatus.style.display = "inline"; // Show upload status
+                        uploadStatus.textContent = " - Files uploaded in your Google Drive"; // Status message
+                        uploadFile(doc, file);
+                    }
+                });
+
+                item.appendChild(title);
+                item.appendChild(label);
+                item.appendChild(uploadedText);
+                item.appendChild(uploadStatus); // Append upload status
+                documentContainer.appendChild(item);
+            });
+
+            function uploadFile(docName, file) {
+                const formData = new FormData();
+                formData.append("file", file);
+                formData.append("file_name", docName);
+
+                fetch("/gdrive/upload", {
+                    method: "POST",
+                    body: formData,
+                })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert("File uploaded successfully");
+                        } else {
+                            alert("Upload failed");
+                        }
+                    })
+                    .catch(err => console.error("Upload error:", err));
+            }
+
+            const modal = document.getElementById("myModal");
+            const modalText = document.getElementById("modalText");
+            const modalLink = document.getElementById("modalLink");
+            const closeModal = document.querySelector(".close");
+
+            closeModal.onclick = () => (modal.style.display = "none");
+
+            window.onclick = event => {
+                if (event.target === modal) modal.style.display = "none";
+            };
+        });
+    </script>
+</body>
+</html>
