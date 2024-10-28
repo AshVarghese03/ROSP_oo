@@ -1,0 +1,6 @@
+bot_name: "EduGuide"
+logic_adapters:
+import_path: "chatterbot.logic.BestMatch"
+default_response: "I'm not sure what you mean. Please try asking differently."
+maximum_similarity_threshold: 0.90
+min_confidence: 0.5
